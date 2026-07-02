@@ -10,26 +10,29 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #f4f7fb;
-      --surface: rgba(255, 255, 255, 0.76);
-      --surface-strong: rgba(255, 255, 255, 0.92);
-      --surface-soft: rgba(247, 250, 252, 0.82);
-      --line: rgba(18, 29, 43, 0.1);
-      --line-strong: rgba(18, 29, 43, 0.16);
-      --text: #111827;
-      --muted: #657282;
-      --muted-strong: #475569;
+      --bg: #eef3f8;
+      --bg-accent: #f8fafc;
+      --panel: rgba(255, 255, 255, 0.82);
+      --panel-strong: rgba(255, 255, 255, 0.94);
+      --panel-dark: rgba(15, 23, 42, 0.92);
+      --line: rgba(15, 23, 42, 0.08);
+      --line-strong: rgba(15, 23, 42, 0.14);
+      --text: #0f172a;
+      --muted: #64748b;
+      --muted-soft: #94a3b8;
       --accent: #0f766e;
+      --accent-soft: rgba(15, 118, 110, 0.1);
       --accent-strong: #115e59;
-      --accent-soft: rgba(15, 118, 110, 0.12);
       --blue: #2563eb;
-      --blue-soft: rgba(37, 99, 235, 0.11);
-      --green: #047857;
-      --green-soft: rgba(4, 120, 87, 0.12);
+      --blue-soft: rgba(37, 99, 235, 0.12);
+      --green: #15803d;
+      --green-soft: rgba(21, 128, 61, 0.12);
       --red: #b42318;
-      --red-soft: rgba(180, 35, 24, 0.1);
-      --shadow: 0 24px 70px rgba(18, 29, 43, 0.12);
-      --shadow-soft: 0 14px 40px rgba(18, 29, 43, 0.08);
+      --red-soft: rgba(180, 35, 24, 0.12);
+      --amber: #b45309;
+      --amber-soft: rgba(180, 83, 9, 0.1);
+      --shadow-lg: 0 22px 60px rgba(15, 23, 42, 0.12);
+      --shadow-md: 0 10px 30px rgba(15, 23, 42, 0.08);
       --radius: 8px;
       --radius-sm: 6px;
     }
@@ -43,14 +46,14 @@
     }
 
     body {
-      min-height: 100vh;
       margin: 0;
+      min-height: 100vh;
       color: var(--text);
       font-family: "Inter", "Noto Sans SC", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       background:
-        linear-gradient(120deg, rgba(15, 118, 110, 0.11), transparent 34%),
-        linear-gradient(240deg, rgba(37, 99, 235, 0.1), transparent 32%),
-        linear-gradient(180deg, #ffffff 0%, var(--bg) 48%, #eef4f8 100%);
+        radial-gradient(circle at top left, rgba(37, 99, 235, 0.08), transparent 24%),
+        radial-gradient(circle at top right, rgba(15, 118, 110, 0.1), transparent 22%),
+        linear-gradient(180deg, #f7fafc 0%, var(--bg) 100%);
     }
 
     body::before {
@@ -58,12 +61,11 @@
       position: fixed;
       inset: 0;
       pointer-events: none;
-      background-image:
-        linear-gradient(rgba(18, 29, 43, 0.045) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(18, 29, 43, 0.045) 1px, transparent 1px);
-      background-size: 48px 48px;
-      mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.72), transparent 76%);
-      z-index: 0;
+      background:
+        linear-gradient(rgba(15, 23, 42, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(15, 23, 42, 0.03) 1px, transparent 1px);
+      background-size: 56px 56px;
+      mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), transparent 72%);
     }
 
     a {
@@ -72,246 +74,7 @@
     }
 
     a:hover {
-      color: var(--accent);
-    }
-
-    .shell {
-      position: relative;
-      z-index: 1;
-      width: min(1240px, calc(100% - 40px));
-      min-width: 0;
-      margin: 0 auto;
-      padding: 30px 0 56px;
-    }
-
-    .topbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 18px;
-      margin-bottom: 24px;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      min-width: 0;
-    }
-
-    .brand-mark {
-      display: grid;
-      width: 42px;
-      height: 42px;
-      place-items: center;
-      border-radius: var(--radius);
-      color: #ffffff;
-      font-weight: 800;
-      background: linear-gradient(135deg, var(--accent), var(--blue));
-      box-shadow: 0 14px 28px rgba(15, 118, 110, 0.22);
-      flex: 0 0 auto;
-    }
-
-    .brand-title {
-      display: block;
-      font-size: 1.02rem;
-      font-weight: 800;
-      letter-spacing: 0;
-      white-space: nowrap;
-    }
-
-    .brand-subtitle {
-      display: block;
-      margin-top: 2px;
-      color: var(--muted);
-      font-size: 0.88rem;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .top-status {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 8px 10px;
-      color: var(--muted-strong);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: rgba(255, 255, 255, 0.62);
-      backdrop-filter: blur(16px);
-      box-shadow: var(--shadow-soft);
-      font-size: 0.9rem;
-      white-space: nowrap;
-    }
-
-    .status-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--accent);
-      box-shadow: 0 0 0 4px var(--accent-soft);
-    }
-
-    .hero {
-      display: grid;
-      grid-template-columns: minmax(0, 1.08fr) minmax(300px, 0.92fr);
-      gap: 18px;
-      align-items: stretch;
-      min-width: 0;
-      margin-bottom: 18px;
-    }
-
-    .hero-copy,
-    .query-panel,
-    .panel,
-    .metric,
-    .hero-note {
-      border: 1px solid var(--line);
-      background: var(--surface);
-      backdrop-filter: blur(18px);
-      box-shadow: var(--shadow);
-    }
-
-    .hero-copy {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      min-width: 0;
-      min-height: 370px;
-      padding: 34px;
-      border-radius: var(--radius);
-      overflow: hidden;
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      width: fit-content;
-      align-items: center;
-      gap: 8px;
-      padding: 7px 10px;
-      border-radius: var(--radius-sm);
-      color: var(--accent-strong);
-      background: var(--accent-soft);
-      font-size: 0.78rem;
-      font-weight: 800;
-      text-transform: uppercase;
-    }
-
-    h1 {
-      max-width: 11ch;
-      margin: 22px 0 14px;
-      font-size: clamp(2.7rem, 6.2vw, 5.8rem);
-      line-height: 0.94;
-      letter-spacing: 0;
-    }
-
-    .lead {
-      max-width: 62ch;
-      margin: 0;
-      color: var(--muted-strong);
-      font-size: 1rem;
-      line-height: 1.8;
-    }
-
-    .hero-meta {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 10px;
-      margin-top: 32px;
-    }
-
-    .hero-note {
-      min-height: 88px;
-      padding: 14px;
-      border-radius: var(--radius);
-      box-shadow: var(--shadow-soft);
-    }
-
-    .hero-note span,
-    .card-label,
-    .microcopy,
-    .table-note,
-    .footer-note {
-      color: var(--muted);
-    }
-
-    .hero-note strong {
-      display: block;
-      margin-top: 8px;
-      font-size: 1.06rem;
-      line-height: 1.35;
-      word-break: break-all;
-    }
-
-    .query-panel {
-      min-width: 0;
-      padding: 22px;
-      border-radius: var(--radius);
-    }
-
-    .panel-header,
-    .toolbar {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 16px;
-      margin-bottom: 18px;
-    }
-
-    h2 {
-      margin: 0 0 6px;
-      font-size: 1.18rem;
-      letter-spacing: 0;
-    }
-
-    .microcopy,
-    .table-note {
-      margin: 0;
-      line-height: 1.7;
-      font-size: 0.94rem;
-    }
-
-    .hint {
-      display: inline-flex;
-      align-items: center;
-      min-height: 34px;
-      gap: 8px;
-      padding: 7px 10px;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      color: var(--muted-strong);
-      background: rgba(255, 255, 255, 0.58);
-      font-size: 0.88rem;
-      white-space: nowrap;
-    }
-
-    form {
-      display: grid;
-      gap: 16px;
-    }
-
-    .form-grid {
-      display: grid;
-      grid-template-columns: repeat(12, minmax(0, 1fr));
-      gap: 12px;
-    }
-
-    .field {
-      display: grid;
-      gap: 7px;
-    }
-
-    .field[data-span="12"] { grid-column: span 12; }
-    .field[data-span="6"] { grid-column: span 6; }
-    .field[data-span="4"] { grid-column: span 4; }
-    .field[data-span="3"] { grid-column: span 3; }
-    .field[data-span="2"] { grid-column: span 2; }
-
-    label {
-      color: var(--muted-strong);
-      font-size: 0.88rem;
-      font-weight: 700;
+      color: var(--blue);
     }
 
     input,
@@ -320,52 +83,293 @@
       font: inherit;
     }
 
+    .shell {
+      position: relative;
+      width: min(1380px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 24px 0 40px;
+      z-index: 1;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 18px;
+      padding: 14px 16px;
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      border-radius: var(--radius);
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(15, 118, 110, 0.86));
+      box-shadow: var(--shadow-lg);
+      color: #f8fafc;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      min-width: 0;
+    }
+
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      font-size: 1rem;
+      font-weight: 800;
+      letter-spacing: 0;
+      flex: 0 0 auto;
+      backdrop-filter: blur(16px);
+    }
+
+    .brand-copy {
+      min-width: 0;
+    }
+
+    .brand-title {
+      margin: 0;
+      font-size: 1.02rem;
+      font-weight: 800;
+      line-height: 1.2;
+    }
+
+    .brand-subtitle {
+      margin: 3px 0 0;
+      color: rgba(248, 250, 252, 0.72);
+      font-size: 0.88rem;
+      line-height: 1.4;
+    }
+
+    .top-meta {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .meta-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 34px;
+      padding: 0 11px;
+      border-radius: var(--radius-sm);
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      color: rgba(248, 250, 252, 0.88);
+      font-size: 0.88rem;
+      white-space: nowrap;
+      backdrop-filter: blur(16px);
+    }
+
+    .pill-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #34d399;
+      box-shadow: 0 0 0 4px rgba(52, 211, 153, 0.18);
+      flex: 0 0 auto;
+    }
+
+    .workspace {
+      display: grid;
+      grid-template-columns: 332px minmax(0, 1fr);
+      gap: 18px;
+      min-width: 0;
+    }
+
+    .sidebar,
+    .surface,
+    .metric,
+    .session-card {
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      border-radius: var(--radius);
+      background: var(--panel);
+      backdrop-filter: blur(20px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .sidebar {
+      padding: 16px;
+      display: grid;
+      gap: 14px;
+      align-content: start;
+      min-width: 0;
+    }
+
+    .sidebar-block {
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.62);
+    }
+
+    .sidebar-head,
+    .panel-head,
+    .table-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .sidebar-title,
+    .panel-title,
+    .table-title {
+      margin: 0;
+      font-size: 1rem;
+      font-weight: 800;
+      line-height: 1.2;
+      letter-spacing: 0;
+    }
+
+    .sidebar-copy,
+    .panel-copy,
+    .table-copy,
+    .microcopy,
+    .footer-note,
+    .table-note {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.65;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 28px;
+      padding: 0 10px;
+      border-radius: var(--radius-sm);
+      background: var(--accent-soft);
+      color: var(--accent-strong);
+      font-size: 0.8rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .sidebar-caption {
+      margin: 2px 0 0;
+      color: var(--muted-soft);
+      font-size: 0.82rem;
+      line-height: 1.55;
+    }
+
+    .session-stack {
+      display: grid;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .session-card {
+      padding: 12px;
+      border-color: var(--line);
+      background: rgba(248, 250, 252, 0.82);
+    }
+
+    .session-card span,
+    .metric span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.82rem;
+      line-height: 1.4;
+    }
+
+    .session-card strong {
+      display: block;
+      margin-top: 7px;
+      font-size: 0.98rem;
+      line-height: 1.35;
+      word-break: break-all;
+    }
+
+    form {
+      display: grid;
+      gap: 14px;
+      margin-top: 12px;
+    }
+
+    .field-grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    .field-row {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .field {
+      display: grid;
+      gap: 7px;
+      min-width: 0;
+    }
+
+    label {
+      color: var(--text);
+      font-size: 0.88rem;
+      font-weight: 700;
+    }
+
     input,
     select {
       width: 100%;
-      min-height: 46px;
+      min-height: 44px;
       padding: 11px 12px;
-      color: var(--text);
       border: 1px solid var(--line);
       border-radius: var(--radius-sm);
       outline: none;
-      background: rgba(255, 255, 255, 0.82);
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.92);
       transition: border-color 160ms ease, box-shadow 160ms ease, background 160ms ease;
+    }
+
+    input::placeholder {
+      color: #9aa7b8;
     }
 
     input:focus,
     select:focus {
-      border-color: rgba(15, 118, 110, 0.62);
+      border-color: rgba(37, 99, 235, 0.42);
+      box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
       background: #ffffff;
-      box-shadow: 0 0 0 4px rgba(15, 118, 110, 0.1);
     }
 
     input[readonly] {
       color: var(--accent-strong);
-      background: var(--accent-soft);
-      border-color: rgba(15, 118, 110, 0.18);
       font-weight: 800;
+      background: linear-gradient(180deg, rgba(15, 118, 110, 0.08), rgba(255, 255, 255, 0.9));
+      border-color: rgba(15, 118, 110, 0.18);
     }
 
-    .actions,
-    .quick-actions,
-    .pagination {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
+    .action-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
       gap: 10px;
+    }
+
+    .share-wrap {
+      display: grid;
     }
 
     button {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-height: 44px;
+      min-height: 42px;
       padding: 0 14px;
       border: 1px solid transparent;
       border-radius: var(--radius-sm);
       cursor: pointer;
-      transition: transform 160ms ease, box-shadow 160ms ease, opacity 160ms ease, background 160ms ease;
+      transition: transform 160ms ease, opacity 160ms ease, background 160ms ease, box-shadow 160ms ease;
     }
 
     button:hover {
@@ -373,114 +377,298 @@
     }
 
     button:disabled {
+      opacity: 0.6;
       cursor: not-allowed;
-      opacity: 0.58;
       transform: none;
       box-shadow: none;
     }
 
     .primary {
       color: #ffffff;
-      background: linear-gradient(135deg, var(--accent), var(--blue));
-      box-shadow: 0 16px 30px rgba(15, 118, 110, 0.2);
       font-weight: 800;
+      background: linear-gradient(135deg, var(--blue), var(--accent));
+      box-shadow: 0 12px 24px rgba(37, 99, 235, 0.22);
     }
 
     .secondary {
       color: var(--text);
+      background: rgba(255, 255, 255, 0.86);
       border-color: var(--line);
-      background: rgba(255, 255, 255, 0.7);
+    }
+
+    .quick-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 2px;
     }
 
     .chip {
-      min-height: 36px;
-      padding: 0 11px;
-      color: var(--muted-strong);
+      min-height: 34px;
+      padding: 0 10px;
+      color: var(--muted);
+      background: rgba(248, 250, 252, 0.92);
       border-color: var(--line);
-      background: rgba(255, 255, 255, 0.56);
-      font-size: 0.9rem;
+      font-size: 0.84rem;
     }
 
     .chip:hover {
-      color: var(--accent-strong);
-      border-color: rgba(15, 118, 110, 0.32);
-      background: var(--accent-soft);
+      color: var(--blue);
+      background: var(--blue-soft);
+      border-color: rgba(37, 99, 235, 0.18);
     }
 
     .status {
-      min-height: 24px;
+      min-height: 22px;
       margin: 2px 0 0;
       color: var(--muted);
-      font-size: 0.92rem;
+      font-size: 0.9rem;
     }
 
     .status.error {
       color: var(--red);
     }
 
-    .stack {
+    .content {
       display: grid;
-      min-width: 0;
       gap: 18px;
+      min-width: 0;
+    }
+
+    .overview {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 260px;
+      gap: 18px;
+      min-width: 0;
+    }
+
+    .surface {
+      min-width: 0;
+      padding: 18px;
+    }
+
+    .headline {
+      padding: 20px;
+      background:
+        linear-gradient(135deg, rgba(15, 23, 42, 0.97), rgba(30, 41, 59, 0.94) 54%, rgba(15, 118, 110, 0.78));
+      color: #f8fafc;
+      border-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 28px;
+      padding: 0 10px;
+      border-radius: var(--radius-sm);
+      color: rgba(248, 250, 252, 0.92);
+      background: rgba(255, 255, 255, 0.12);
+      font-size: 0.78rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
+
+    .headline h1 {
+      margin: 14px 0 10px;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      line-height: 1.02;
+      letter-spacing: 0;
+    }
+
+    .headline .panel-copy {
+      color: rgba(248, 250, 252, 0.76);
+      max-width: 52ch;
+    }
+
+    .headline-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .headline-stat {
+      padding: 12px;
+      border-radius: var(--radius-sm);
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .headline-stat span {
+      display: block;
+      color: rgba(248, 250, 252, 0.62);
+      font-size: 0.8rem;
+      line-height: 1.4;
+    }
+
+    .headline-stat strong {
+      display: block;
+      margin-top: 8px;
+      color: #ffffff;
+      font-size: 1rem;
+      line-height: 1.35;
+      word-break: break-all;
+    }
+
+    .signal-panel {
+      display: grid;
+      gap: 12px;
+      align-content: space-between;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(237, 242, 247, 0.9));
+    }
+
+    .signal-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .signal-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: var(--radius-sm);
+      background: rgba(255, 255, 255, 0.78);
+      border: 1px solid var(--line);
+    }
+
+    .signal-row span {
+      color: var(--muted);
+      font-size: 0.84rem;
+    }
+
+    .signal-row strong {
+      color: var(--text);
+      font-size: 0.92rem;
+      word-break: break-word;
+      text-align: right;
     }
 
     .metrics {
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
       min-width: 0;
-      gap: 14px;
     }
 
     .metric {
-      display: grid;
       min-width: 0;
-      min-height: 132px;
-      align-content: space-between;
-      gap: 14px;
-      padding: 18px;
-      border-radius: var(--radius);
-      box-shadow: var(--shadow-soft);
+      padding: 16px;
+      border-color: rgba(255, 255, 255, 0.74);
     }
 
-    .card-label {
+    .metric strong {
       display: block;
-      font-size: 0.88rem;
-      font-weight: 700;
-    }
-
-    .card-value {
-      display: block;
-      font-size: clamp(1.45rem, 2.4vw, 2.25rem);
-      line-height: 1.04;
+      margin-top: 8px;
+      font-size: clamp(1.4rem, 2.2vw, 2.1rem);
+      line-height: 1.08;
       letter-spacing: 0;
       word-break: break-word;
     }
 
+    .metric p {
+      margin: 10px 0 0;
+      color: var(--muted);
+      font-size: 0.86rem;
+      line-height: 1.5;
+    }
+
     .metric.good {
-      border-color: rgba(4, 120, 87, 0.18);
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.88), var(--green-soft));
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), var(--green-soft));
+    }
+
+    .metric.good strong {
+      color: var(--green);
     }
 
     .metric.bad {
-      border-color: rgba(180, 35, 24, 0.16);
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.88), var(--red-soft));
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), var(--red-soft));
     }
 
-    .metric.good .card-value { color: var(--green); }
-    .metric.bad .card-value { color: var(--red); }
+    .metric.bad strong {
+      color: var(--red);
+    }
 
-    .panel {
-      min-width: 0;
-      padding: 22px;
-      border-radius: var(--radius);
+    .metric.neutral {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(15, 118, 110, 0.06));
+    }
+
+    .metric.focus {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), var(--amber-soft));
+    }
+
+    .table-panel {
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .table-frame {
+      padding: 18px 18px 0;
+    }
+
+    .toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin-top: 14px;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+    }
+
+    .toolbar-note {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 34px;
+      padding: 0 10px;
+      border-radius: var(--radius-sm);
+      background: rgba(255, 255, 255, 0.8);
+      border: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 0.84rem;
+    }
+
+    .toolbar-note::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--blue);
+      box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+      flex: 0 0 auto;
+    }
+
+    .pagination {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .hint {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 34px;
+      padding: 0 10px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--line);
+      background: rgba(248, 250, 252, 0.88);
+      color: var(--muted);
+      font-size: 0.84rem;
+      white-space: nowrap;
     }
 
     .table-shell {
       max-width: 100%;
       min-width: 0;
       overflow: auto;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
+      border-top: 1px solid var(--line);
       background: rgba(255, 255, 255, 0.72);
     }
 
@@ -492,25 +680,26 @@
 
     th,
     td {
-      padding: 14px 13px;
+      padding: 14px 16px;
       text-align: left;
-      border-bottom: 1px solid rgba(18, 29, 43, 0.08);
       vertical-align: top;
+      border-bottom: 1px solid rgba(15, 23, 42, 0.06);
     }
 
     th {
       position: sticky;
       top: 0;
       z-index: 1;
-      color: var(--muted-strong);
-      background: rgba(247, 250, 252, 0.96);
+      background: rgba(248, 250, 252, 0.96);
+      color: var(--muted);
       font-size: 0.78rem;
       font-weight: 800;
       text-transform: uppercase;
+      letter-spacing: 0;
     }
 
     tbody tr:hover {
-      background: rgba(15, 118, 110, 0.045);
+      background: rgba(37, 99, 235, 0.04);
     }
 
     tr:last-child td {
@@ -519,7 +708,7 @@
 
     .mono {
       font-family: "SFMono-Regular", "Cascadia Code", "Consolas", monospace;
-      font-size: 0.88rem;
+      font-size: 0.86rem;
       word-break: break-all;
     }
 
@@ -527,23 +716,25 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-width: 52px;
+      min-width: 54px;
       min-height: 30px;
-      padding: 5px 8px;
+      padding: 0 10px;
       border-radius: var(--radius-sm);
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       font-weight: 800;
-      background: rgba(18, 29, 43, 0.06);
+      border: 1px solid transparent;
     }
 
     .dir-in {
       color: var(--green);
       background: var(--green-soft);
+      border-color: rgba(21, 128, 61, 0.14);
     }
 
     .dir-out {
       color: var(--red);
       background: var(--red-soft);
+      border-color: rgba(180, 35, 24, 0.12);
     }
 
     .amount-in {
@@ -557,24 +748,25 @@
     }
 
     .empty {
-      padding: 42px 18px;
-      color: var(--muted);
+      padding: 56px 18px;
       text-align: center;
+      color: var(--muted);
+      font-size: 0.92rem;
     }
 
     .footer-note {
-      margin: 16px 0 0;
-      font-size: 0.9rem;
-      line-height: 1.7;
+      padding: 14px 18px 18px;
+      border-top: 1px solid var(--line);
+      background: rgba(248, 250, 252, 0.68);
     }
 
-    @media (max-width: 1100px) {
-      .hero {
+    @media (max-width: 1180px) {
+      .workspace {
         grid-template-columns: 1fr;
       }
 
-      .hero-copy {
-        min-height: auto;
+      .overview {
+        grid-template-columns: 1fr;
       }
 
       .metrics {
@@ -584,47 +776,44 @@
 
     @media (max-width: 760px) {
       .shell {
-        width: min(100% - 24px, 100%);
-        padding-top: 18px;
+        width: min(100% - 20px, 100%);
+        padding-top: 16px;
       }
 
       .topbar,
-      .panel-header,
       .toolbar {
-        align-items: stretch;
         flex-direction: column;
+        align-items: stretch;
       }
 
-      .top-status,
-      .hint {
-        width: fit-content;
+      .top-meta {
+        justify-content: flex-start;
       }
 
-      .hero-copy,
-      .query-panel,
-      .panel {
-        padding: 18px;
+      .headline,
+      .surface,
+      .sidebar {
+        padding-left: 14px;
+        padding-right: 14px;
       }
 
-      h1 {
-        max-width: 9.5ch;
-        font-size: 2.6rem;
-      }
-
-      .hero-meta,
-      .metrics {
+      .headline-grid,
+      .metrics,
+      .field-row {
         grid-template-columns: 1fr;
       }
 
-      .field[data-span="6"],
-      .field[data-span="4"],
-      .field[data-span="3"],
-      .field[data-span="2"] {
-        grid-column: span 12;
+      .action-grid {
+        grid-template-columns: 1fr;
       }
 
-      .actions button {
-        flex: 1 1 148px;
+      .table-frame {
+        padding: 14px 14px 0;
+      }
+
+      th,
+      td {
+        padding: 13px 12px;
       }
     }
   </style>
@@ -633,166 +822,247 @@
   <main class="shell">
     <header class="topbar">
       <div class="brand">
-        <span class="brand-mark">U</span>
-        <span>
-          <span class="brand-title">USDT 地址查询</span>
-          <span class="brand-subtitle">TRC20 交易流水与地址统计</span>
-        </span>
+        <div class="brand-mark">U</div>
+        <div class="brand-copy">
+          <p class="brand-title">USDT 地址查询</p>
+          <p class="brand-subtitle">TRC20 交易流水与地址统计</p>
+        </div>
       </div>
-      <div class="top-status">
-        <span class="status-dot"></span>
-        <span>TRC20 地址查询 · 交易流水追踪</span>
+      <div class="top-meta">
+        <span class="meta-pill"><span class="pill-dot"></span>实时查询工作台</span>
+        <span class="meta-pill">地址筛选</span>
+        <span class="meta-pill">流水视图</span>
       </div>
     </header>
 
-    <section class="hero">
-      <div class="hero-copy">
-        <div>
-          <span class="eyebrow">TRC20 · USDT</span>
-          <h1>查 U，更清爽。</h1>
-          <p class="lead">输入 TRON 地址，即可按方向、金额和日期筛选 USDT 交易，快速查看收入、支出、净流入和当前页流水。</p>
+    <section class="workspace">
+      <aside class="sidebar">
+        <div class="sidebar-block">
+          <div class="sidebar-head">
+            <div>
+              <h2 class="sidebar-title">查询面板</h2>
+              <p class="sidebar-copy">把地址、金额区间和时间范围放在同一侧，减少来回跳视线。</p>
+            </div>
+            <span class="badge">工作台</span>
+          </div>
+
+          <form id="search-form">
+            <div class="field-grid">
+              <div class="field">
+                <label for="address">钱包地址</label>
+                <input id="address" name="address" placeholder="输入 TRON 地址，例如 TDU1i8f5WrQnmYCfXMcjKTyiQAWHrEEw3J" autocomplete="off" required>
+              </div>
+
+              <div class="field-row">
+                <div class="field">
+                  <label for="direction">方向</label>
+                  <select id="direction" name="direction">
+                    <option value="">全部</option>
+                    <option value="in">收入</option>
+                    <option value="out">支出</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="token">币种</label>
+                  <input id="token" name="token" value="USDT" readonly>
+                </div>
+              </div>
+
+              <div class="field-row">
+                <div class="field">
+                  <label for="min_amount">最小金额</label>
+                  <input id="min_amount" name="min_amount" type="number" min="0" step="0.000001" placeholder="0">
+                </div>
+                <div class="field">
+                  <label for="max_amount">最大金额</label>
+                  <input id="max_amount" name="max_amount" type="number" min="0" step="0.000001" placeholder="1000">
+                </div>
+              </div>
+
+              <div class="field-row">
+                <div class="field">
+                  <label for="start_date">开始日期</label>
+                  <input id="start_date" name="start_date" type="date">
+                </div>
+                <div class="field">
+                  <label for="end_date">结束日期</label>
+                  <input id="end_date" name="end_date" type="date">
+                </div>
+              </div>
+            </div>
+
+            <div class="action-grid">
+              <button class="primary" type="submit" id="submit-btn">开始查询</button>
+              <button class="secondary" type="button" id="reset-btn">清空筛选</button>
+            </div>
+
+            <div class="share-wrap">
+              <button class="secondary" type="button" id="share-btn">复制分享链接</button>
+            </div>
+
+            <div class="quick-actions">
+              <button class="chip" type="button" data-sample="TDU1i8f5WrQnmYCfXMcjKTyiQAWHrEEw3J">示例地址</button>
+              <button class="chip" type="button" data-direction="in">只看收入</button>
+              <button class="chip" type="button" data-direction="out">只看支出</button>
+              <button class="chip" type="button" data-range="today">今天</button>
+              <button class="chip" type="button" data-range="7d">最近 7 天</button>
+            </div>
+          </form>
+
+          <p class="status" id="status-text"></p>
         </div>
-        <div class="hero-meta">
-          <div class="hero-note">
-            <span>接口状态</span>
-            <strong id="api-status">待查询</strong>
+
+        <div class="sidebar-block">
+          <div class="sidebar-head">
+            <div>
+              <h2 class="sidebar-title">查询会话</h2>
+              <p class="sidebar-caption">把这次查询的关键状态固定在侧边栏里，结果区就可以更专注于数据本身。</p>
+            </div>
+            <span class="badge">状态</span>
           </div>
-          <div class="hero-note">
-            <span>当前地址</span>
-            <strong id="active-address">-</strong>
-          </div>
-          <div class="hero-note">
-            <span>当前页</span>
-            <strong id="active-page">1</strong>
+
+          <div class="session-stack">
+            <div class="session-card">
+              <span>接口状态</span>
+              <strong id="api-status">待查询</strong>
+            </div>
+            <div class="session-card">
+              <span>当前地址</span>
+              <strong id="active-address">-</strong>
+            </div>
+            <div class="session-card">
+              <span>当前页</span>
+              <strong id="active-page">1</strong>
+            </div>
           </div>
         </div>
-      </div>
+      </aside>
 
-      <section class="query-panel">
-        <div class="panel-header">
-          <div>
-            <h2>查询条件</h2>
-            <p class="microcopy">保留必要筛选项，让查询路径更短。</p>
-          </div>
-          <span class="hint">快速筛选</span>
+      <section class="content">
+        <div class="overview">
+          <section class="surface headline">
+            <span class="eyebrow">TRC20 · USDT</span>
+            <h1>把查询结果放回前台。</h1>
+            <p class="panel-copy">这次不再做宣传页式排版，首屏直接进入结果工作区。左侧是筛选，右侧是概览、统计和流水。</p>
+
+            <div class="headline-grid">
+              <div class="headline-stat">
+                <span>筛选范围</span>
+                <strong>地址、方向、金额、日期</strong>
+              </div>
+              <div class="headline-stat">
+                <span>结果视图</span>
+                <strong>统计卡片与交易流水表</strong>
+              </div>
+              <div class="headline-stat">
+                <span>查询方式</span>
+                <strong>单页直达式工作流</strong>
+              </div>
+            </div>
+          </section>
+
+          <section class="surface signal-panel">
+            <div class="panel-head">
+              <div>
+                <h2 class="panel-title">当前视图</h2>
+                <p class="panel-copy">在结果区前先给出一个简明状态板。</p>
+              </div>
+              <span class="badge">概览</span>
+            </div>
+
+            <div class="signal-list">
+              <div class="signal-row">
+                <span>数据模式</span>
+                <strong>交易流水</strong>
+              </div>
+              <div class="signal-row">
+                <span>地址状态</span>
+                <strong>等待输入或查询</strong>
+              </div>
+              <div class="signal-row">
+                <span>分页位置</span>
+                <strong id="page-indicator">第 1 页</strong>
+              </div>
+              <div class="signal-row">
+                <span>当前页记录数</span>
+                <strong id="page-count">0</strong>
+              </div>
+              <div class="signal-row">
+                <span>后续页面</span>
+                <strong id="more-state">无下一页</strong>
+              </div>
+            </div>
+          </section>
         </div>
 
-        <form id="search-form">
-          <div class="form-grid">
-            <div class="field" data-span="12">
-              <label for="address">钱包地址</label>
-              <input id="address" name="address" placeholder="输入 TRON 地址，例如 TDU1i8f5WrQnmYCfXMcjKTyiQAWHrEEw3J" autocomplete="off" required>
+        <section class="metrics" id="metrics">
+          <article class="metric good">
+            <span>收入总额</span>
+            <strong id="income-amount">-</strong>
+            <p id="income-count">0 笔</p>
+          </article>
+          <article class="metric bad">
+            <span>支出总额</span>
+            <strong id="expense-amount">-</strong>
+            <p id="expense-count">0 笔</p>
+          </article>
+          <article class="metric neutral">
+            <span>净流入</span>
+            <strong id="net-amount">-</strong>
+            <p>收入减去支出</p>
+          </article>
+          <article class="metric focus">
+            <span>当前页记录数</span>
+            <strong id="page-count-mirror">0</strong>
+            <p>用于快速判断结果密度</p>
+          </article>
+        </section>
+
+        <section class="surface table-panel">
+          <div class="table-frame">
+            <div class="table-head">
+              <div>
+                <h2 class="table-title">交易流水</h2>
+                <p class="table-copy">主区域保留给数据本身，不再堆叠无关说明。点击 hash 会跳转到原站交易详情页。</p>
+              </div>
+              <span class="badge">结果表</span>
             </div>
-            <div class="field" data-span="6">
-              <label for="direction">方向</label>
-              <select id="direction" name="direction">
-                <option value="">全部</option>
-                <option value="in">收入</option>
-                <option value="out">支出</option>
-              </select>
-            </div>
-            <div class="field" data-span="6">
-              <label for="token">币种</label>
-              <input id="token" name="token" value="USDT" readonly>
-            </div>
-            <div class="field" data-span="6">
-              <label for="min_amount">最小金额</label>
-              <input id="min_amount" name="min_amount" type="number" min="0" step="0.000001" placeholder="0">
-            </div>
-            <div class="field" data-span="6">
-              <label for="max_amount">最大金额</label>
-              <input id="max_amount" name="max_amount" type="number" min="0" step="0.000001" placeholder="1000">
-            </div>
-            <div class="field" data-span="6">
-              <label for="start_date">开始日期</label>
-              <input id="start_date" name="start_date" type="date">
-            </div>
-            <div class="field" data-span="6">
-              <label for="end_date">结束日期</label>
-              <input id="end_date" name="end_date" type="date">
+
+            <div class="toolbar">
+              <span class="toolbar-note">按查询条件加载对应页数据</span>
+              <div class="pagination">
+                <button class="secondary" type="button" id="prev-btn">上一页</button>
+                <span class="hint" id="page-indicator-toolbar">第 1 页</span>
+                <button class="secondary" type="button" id="next-btn">下一页</button>
+              </div>
             </div>
           </div>
 
-          <div class="actions">
-            <button class="primary" type="submit" id="submit-btn">开始查询</button>
-            <button class="secondary" type="button" id="reset-btn">清空筛选</button>
-            <button class="secondary" type="button" id="share-btn">复制分享链接</button>
+          <div class="table-shell">
+            <table>
+              <thead>
+                <tr>
+                  <th>方向</th>
+                  <th>金额</th>
+                  <th>时间</th>
+                  <th>Hash</th>
+                  <th>转出地址</th>
+                  <th>转入地址</th>
+                  <th>区块</th>
+                </tr>
+              </thead>
+              <tbody id="tx-body">
+                <tr>
+                  <td colspan="7" class="empty">输入地址后开始查询。</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
 
-          <div class="quick-actions">
-            <button class="chip" type="button" data-sample="TDU1i8f5WrQnmYCfXMcjKTyiQAWHrEEw3J">示例地址</button>
-            <button class="chip" type="button" data-direction="in">只看收入</button>
-            <button class="chip" type="button" data-direction="out">只看支出</button>
-            <button class="chip" type="button" data-range="today">今天</button>
-            <button class="chip" type="button" data-range="7d">最近 7 天</button>
-          </div>
-        </form>
-
-        <p class="status" id="status-text"></p>
+          <p class="footer-note">提示：当前页面展示可查询到的 USDT 交易流水与统计结果。</p>
+        </section>
       </section>
     </section>
-
-    <div class="stack">
-      <section class="metrics" id="metrics">
-        <article class="metric good">
-          <span class="card-label">收入总额</span>
-          <strong class="card-value" id="income-amount">-</strong>
-          <span class="microcopy" id="income-count">0 笔</span>
-        </article>
-        <article class="metric bad">
-          <span class="card-label">支出总额</span>
-          <strong class="card-value" id="expense-amount">-</strong>
-          <span class="microcopy" id="expense-count">0 笔</span>
-        </article>
-        <article class="metric">
-          <span class="card-label">净流入</span>
-          <strong class="card-value" id="net-amount">-</strong>
-          <span class="microcopy">收入减去支出</span>
-        </article>
-        <article class="metric">
-          <span class="card-label">当前页记录数</span>
-          <strong class="card-value" id="page-count">0</strong>
-          <span class="microcopy" id="more-state">无下一页</span>
-        </article>
-      </section>
-
-      <section class="panel">
-        <div class="toolbar">
-          <div>
-            <h2>交易流水</h2>
-            <p class="table-note">点击 hash 会跳转到原站交易详情页。</p>
-          </div>
-          <div class="pagination">
-            <button class="secondary" type="button" id="prev-btn">上一页</button>
-            <span class="hint" id="page-indicator">第 1 页</span>
-            <button class="secondary" type="button" id="next-btn">下一页</button>
-          </div>
-        </div>
-
-        <div class="table-shell">
-          <table>
-            <thead>
-              <tr>
-                <th>方向</th>
-                <th>金额</th>
-                <th>时间</th>
-                <th>Hash</th>
-                <th>转出地址</th>
-                <th>转入地址</th>
-                <th>区块</th>
-              </tr>
-            </thead>
-            <tbody id="tx-body">
-              <tr>
-                <td colspan="7" class="empty">输入地址后开始查询。</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <p class="footer-note">提示：当前页面展示可查询到的 USDT 交易流水与统计结果。</p>
-      </section>
-    </div>
   </main>
 
   <script>
@@ -824,7 +1094,9 @@
     const activeAddress = document.getElementById("active-address");
     const activePage = document.getElementById("active-page");
     const pageIndicator = document.getElementById("page-indicator");
+    const pageIndicatorToolbar = document.getElementById("page-indicator-toolbar");
     const pageCount = document.getElementById("page-count");
+    const pageCountMirror = document.getElementById("page-count-mirror");
     const moreState = document.getElementById("more-state");
 
     const incomeAmount = document.getElementById("income-amount");
@@ -870,7 +1142,7 @@
 
     function getQueryFromForm(pageOverride) {
       const address = addressInput.value.trim();
-      const query = {
+      return {
         address,
         token: "USDT",
         direction: directionInput.value,
@@ -880,8 +1152,6 @@
         end_date: endDateInput.value,
         page: pageOverride || state.currentPage
       };
-
-      return query;
     }
 
     function buildSearchParams(query, includePage) {
@@ -977,6 +1247,19 @@
       return response.json();
     }
 
+    function syncPaginationDisplay(page) {
+      const text = `第 ${page} 页`;
+      pageIndicator.textContent = text;
+      pageIndicatorToolbar.textContent = text;
+      activePage.textContent = String(page);
+    }
+
+    function syncPageCountDisplay(count) {
+      const text = String(count);
+      pageCount.textContent = text;
+      pageCountMirror.textContent = text;
+    }
+
     async function runSearch(pageOverride) {
       const query = getQueryFromForm(pageOverride);
       if (!query.address) {
@@ -991,8 +1274,7 @@
       setLoading(true);
       setStatus("正在拉取统计和交易数据...");
       activeAddress.textContent = query.address;
-      activePage.textContent = String(state.currentPage);
-      pageIndicator.textContent = `第 ${state.currentPage} 页`;
+      syncPaginationDisplay(state.currentPage);
 
       const txParams = buildSearchParams(query, true);
       txParams.set("_t", String(Date.now()));
@@ -1014,17 +1296,17 @@
 
         const transactions = txResult.data?.transactionsList || [];
         const pagination = txResult.data?.pagination || {};
+        const currentPage = pagination.current_page || state.currentPage;
 
         state.hasMore = Boolean(pagination.has_more);
         renderStats(statsResult.data);
         renderTransactions(transactions);
 
-        pageCount.textContent = String(transactions.length);
+        syncPageCountDisplay(transactions.length);
         moreState.textContent = state.hasMore ? "存在下一页" : "已到最后一页";
         apiStatus.textContent = "查询成功";
-        activePage.textContent = String(pagination.current_page || state.currentPage);
-        pageIndicator.textContent = `第 ${pagination.current_page || state.currentPage} 页`;
-        prevBtn.disabled = state.currentPage <= 1;
+        syncPaginationDisplay(currentPage);
+        prevBtn.disabled = currentPage <= 1;
         nextBtn.disabled = !state.hasMore;
         setStatus(`已加载 ${transactions.length} 条记录。`);
       } catch (error) {
@@ -1052,10 +1334,9 @@
       state.lastQuery = null;
       history.replaceState(null, "", window.location.pathname);
       activeAddress.textContent = "-";
-      activePage.textContent = "1";
       apiStatus.textContent = "待查询";
-      pageIndicator.textContent = "第 1 页";
-      pageCount.textContent = "0";
+      syncPaginationDisplay(1);
+      syncPageCountDisplay(0);
       moreState.textContent = "无下一页";
       txBody.innerHTML = '<tr><td colspan="7" class="empty">输入地址后开始查询。</td></tr>';
       incomeAmount.textContent = "-";
